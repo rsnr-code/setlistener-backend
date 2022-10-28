@@ -3,14 +3,14 @@ const axios = require("axios");
 const cors = require("cors");
 const path = require('path');
 
-require("dotenv").config({ path: "./.env" });
-
 const app = express();
+
+require("dotenv").config(".env");
+
 
 app.use(cors());
 
 app.use(express.static(path.join(__dirname + "/public")))
-
 
 app.get("/setlist", (req, res) => {
   const artist = req.query.artistName;
@@ -20,7 +20,7 @@ app.get("/setlist", (req, res) => {
     url: `https://api.setlist.fm/rest//1.0/search/setlists?`,
     params: { artistName: artist },
     headers: {
-      "x-api-key": '9bpLkkMMmV7NHKWsOG0Rwc_FNaSsMSJlipwb',
+      "x-api-key": process.env.REACT_APP_API_KEY,
       Accept: "application/json",
     },
   };
